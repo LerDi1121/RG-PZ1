@@ -26,3 +26,5 @@ D:\EndGame\PZ1_PR132_2016\RG-PZ1\PZ1_PR132_2016\obj\Debug\PZ1_PR132_2016.Propert
 D:\EndGame\PZ1_PR132_2016\RG-PZ1\PZ1_PR132_2016\obj\Debug\PZ1_PR132_2016.csproj.GenerateResource.cache
 D:\EndGame\PZ1_PR132_2016\RG-PZ1\PZ1_PR132_2016\obj\Debug\PZ1_PR132_2016.exe
 D:\EndGame\PZ1_PR132_2016\RG-PZ1\PZ1_PR132_2016\obj\Debug\PZ1_PR132_2016.pdb
+D:\EndGame\PZ1_PR132_2016\RG-PZ1\PZ1_PR132_2016\obj\Debug\PropertiesWindow.g.cs
+D:\EndGame\PZ1_PR132_2016\RG-PZ1\PZ1_PR132_2016\obj\Debug\PropertiesWindow.baml

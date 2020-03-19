@@ -20,7 +20,7 @@ namespace PZ1_PR132_2016
     /// </summary>
     public partial class MainWindow : Window
     {
-        static Dictionary <string,bool> dictionaries ;
+        public static Dictionary <string,bool> dictionaries ;
         static List<Button> AllButons;
         public MainWindow()
         {
@@ -39,46 +39,46 @@ namespace PZ1_PR132_2016
 
         private void btnImage_Click(object sender, RoutedEventArgs e)
         {
-
+            Selectbutton(btnImage.Name);
             SelectButtonStyle(btnImage);
             CasualButtonStyle(btnPolygon);
             CasualButtonStyle(btnEllipse);
             CasualButtonStyle(btnRectangle);
-            Selectbutton(btnImage.Name);
+         
 
         }
 
             private void btnPolygon_Click(object sender, RoutedEventArgs e)
         {
-
+            Selectbutton(btnPolygon.Name);
             SelectButtonStyle(btnPolygon);
             CasualButtonStyle(btnImage);
             CasualButtonStyle(btnEllipse);
             CasualButtonStyle(btnRectangle);
-            Selectbutton(btnPolygon.Name);    
+               
         }
 
         private void btnEllipse_Click(object sender, RoutedEventArgs e)
         {
-
+            Selectbutton(btnEllipse.Name);
             SelectButtonStyle(btnEllipse);
             CasualButtonStyle(btnImage);
             CasualButtonStyle(btnPolygon);
             CasualButtonStyle(btnRectangle);
-            Selectbutton(btnEllipse.Name);
+           
 
          
         }
 
         private void btnRectangle_Click(object sender, RoutedEventArgs e)
         {
+            Selectbutton(btnRectangle.Name);
 
-
-            SelectButtonStyle(btnRectangle);
+           
             CasualButtonStyle(btnPolygon);
             CasualButtonStyle(btnEllipse);
             CasualButtonStyle(btnImage);
-            Selectbutton(btnRectangle.Name);
+            SelectButtonStyle(btnRectangle);
         }
         private void Selectbutton(string btnName)
         {
@@ -86,7 +86,7 @@ namespace PZ1_PR132_2016
             {
                 if (temp.Key.Equals(btnName))
                 {
-                    dictionaries[temp.Key] = true;
+                    dictionaries[temp.Key] = !temp.Value;
                     break;
                 }
 
@@ -104,8 +104,11 @@ namespace PZ1_PR132_2016
         }
         private void SelectButtonStyle(Button button)
         {
-            Style style = FindResource("SelectedButtonStyle") as Style;
-            button.Style = style;
+            Style SelectStyle = FindResource("SelectedButtonStyle") as Style;
+            if (dictionaries[button.Name])
+                button.Style = SelectStyle;
+            else
+                CasualButtonStyle(button);
         }
         private void CasualButtonStyle(Button button)
         {
@@ -143,6 +146,15 @@ namespace PZ1_PR132_2016
                     CasualButtonStyle(temp);
         }
 
-        
+        private void MyCanvas_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            foreach(var temp in dictionaries)
+                if(temp.Value)
+                {
+                    PropertiesWindow propertiesWindow = new PropertiesWindow();
+                    propertiesWindow.ShowDialog();
+                }
+          
+        }
     }
 }
