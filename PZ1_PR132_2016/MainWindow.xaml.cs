@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PZ1_PR132_2016.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -149,16 +150,22 @@ namespace PZ1_PR132_2016
 
         private void MyCanvas_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            foreach(var temp in dictionaries)
-                if(temp.Value)
+            foreach (var temp in dictionaries)
+                if (temp.Value)
                 {
                     Point point = e.GetPosition(MyCanvas);
 
 
                     PropertiesWindow propertiesWindow = new PropertiesWindow(point);
                     propertiesWindow.ShowDialog();
+                    AddShapeOnCanvas();
                 }
           
+        }
+        void AddShapeOnCanvas()
+        {
+          
+            MyCanvas.Children.Add(TransferClass.NewShape.Draw());
         }
     }
 }

@@ -31,6 +31,7 @@ namespace PZ1_PR132_2016.Models
             ellipse.Fill = FilCollor;
             ellipse.Stroke = BorderColor;
             ellipse.StrokeThickness = (double)BorderThickness;
+            ellipse.Margin = new System.Windows.Thickness(coordinates.X_coordinate, coordinates.Y_coordinate,0,0);
             return ellipse;
         }
     }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -95,7 +96,13 @@ namespace PZ1_PR132_2016
 
         private void btnDraw_Click(object sender, RoutedEventArgs e)
         {
-            MyEllipse myEllipse = new MyEllipse(PointToDraw.X, PointToDraw.Y,100,200,(Brush)cbFill.SelectedItem,(Brush)cbBorder.SelectedItem,2);
+            var selectedItem = (PropertyInfo)cbBorder.SelectedItem;
+            Color color = (Color)selectedItem.GetValue(null, null);
+            SolidColorBrush b = new SolidColorBrush(color);
+
+            MyEllipse myEllipse = new MyEllipse(PointToDraw.X, PointToDraw.Y,100,200,b,b,2);
+            TransferClass.NewShape = myEllipse;
+            Close();
         }
     }
 }
