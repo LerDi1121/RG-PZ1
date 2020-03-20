@@ -39,6 +39,7 @@ namespace PZ1_PR132_2016
 
         private void btnImage_Click(object sender, RoutedEventArgs e)
         {
+        
             Selectbutton(btnImage.Name);
             SelectButtonStyle(btnImage);
             CasualButtonStyle(btnPolygon);
@@ -151,7 +152,10 @@ namespace PZ1_PR132_2016
             foreach(var temp in dictionaries)
                 if(temp.Value)
                 {
-                    PropertiesWindow propertiesWindow = new PropertiesWindow();
+                    Point point = e.GetPosition(MyCanvas);
+
+
+                    PropertiesWindow propertiesWindow = new PropertiesWindow(point);
                     propertiesWindow.ShowDialog();
                 }
           

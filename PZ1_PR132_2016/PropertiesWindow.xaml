@@ -70,15 +70,15 @@
     <Grid Background="LightGray">
         <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Height="40" Margin="100,332,0,0" VerticalAlignment="Top" Width="175" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnCancel_Click"/>
 
-        <Button x:Name="btnDraw" Content="Draw" Height="40" Margin="517,332,100,0" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave"/>
+        <Button x:Name="btnDraw" Content="Draw" Height="40" Margin="517,332,100,0" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnDraw_Click"/>
         <TextBlock HorizontalAlignment="Left"  Margin="75,60,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}" Text="Width:"/>
         <TextBlock HorizontalAlignment="Left"  Margin="75,231,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}"  Text="Border Thickness:"/>
         <TextBlock HorizontalAlignment="Left"  Margin="75,188,0,0" TextWrapping="Wrap" Text="Border Color :"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}" Height="37" />
         <TextBlock HorizontalAlignment="Left"  Margin="75,146,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}"><Run Text="Fill "/><Run Text="Color:"/></TextBlock>
         <TextBlock HorizontalAlignment="Left"  Margin="75,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource TextBlockStyle}" Text="Height:"/>
-        <TextBox HorizontalAlignment="Left"  Margin="460,60,0,0" TextWrapping="Wrap" Text="" ToolTip="Enter the number" VerticalAlignment="Top"  Style="{StaticResource TextboxStyle}"/>
-        <TextBox HorizontalAlignment="Left"  Margin="460,103,0,0" TextWrapping="Wrap"  Text="" ToolTip="Enter the number" VerticalAlignment="Top" Style="{StaticResource TextboxStyle}"/>
-        <TextBox HorizontalAlignment="Left"  Margin="460,231,0,0" TextWrapping="Wrap"  Text="" ToolTip="Enter the number" VerticalAlignment="Top" Style="{StaticResource TextboxStyle}"/>
+        <TextBox Name="tbWidth" HorizontalAlignment="Left"  Margin="460,60,0,0" TextWrapping="Wrap" Text="" ToolTip="Enter the number" VerticalAlignment="Top"  Style="{StaticResource TextboxStyle}"/>
+        <TextBox Name="tbHeight" HorizontalAlignment="Left"  Margin="460,103,0,0" TextWrapping="Wrap"  Text="" ToolTip="Enter the number" VerticalAlignment="Top" Style="{StaticResource TextboxStyle}"/>
+        <TextBox Name="tbBorderTh" HorizontalAlignment="Left"  Margin="460,231,0,0" TextWrapping="Wrap"  Text="" ToolTip="Enter the number" VerticalAlignment="Top" Style="{StaticResource TextboxStyle}"/>
         <ComboBox x:Name="cbFill" HorizontalAlignment="Left" Height="35" Margin="460,146,0,0" VerticalAlignment="Top" Width="200" BorderBrush="LightGray">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
