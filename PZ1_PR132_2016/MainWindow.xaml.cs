@@ -21,12 +21,12 @@ namespace PZ1_PR132_2016
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Dictionary <string,bool> dictionaries ;
+        public static Dictionary <string,bool> BtnShape ;
         static List<Button> AllButons;
         public MainWindow()
         {
             InitializeComponent();
-            dictionaries = new Dictionary<string, bool>
+            BtnShape = new Dictionary<string, bool>
             {
                 { btnEllipse.Name,false },
                 {btnImage.Name,false },
@@ -84,30 +84,29 @@ namespace PZ1_PR132_2016
         }
         private void Selectbutton(string btnName)
         {
-            foreach (var temp in dictionaries)
+          
+            foreach (var temp in BtnShape)
             {
                 if (temp.Key.Equals(btnName))
                 {
-                    dictionaries[temp.Key] = !temp.Value;
+                    BtnShape[temp.Key] = !temp.Value;
                     break;
                 }
 
             }
-            Dictionary<string, bool> TempDictionaries = new Dictionary<string, bool>(dictionaries);
-            foreach (var temp in dictionaries)
+            Dictionary<string, bool> TempDictionaries = new Dictionary<string, bool>(BtnShape);
+            foreach (var temp in BtnShape)
             {
-                if (!temp.Key.Equals(btnName) && temp.Value)
-                {
+                if (!temp.Key.Equals(btnName))
                     TempDictionaries[temp.Key] = false;
-                }
-
             }
-            dictionaries = TempDictionaries;
+            BtnShape = TempDictionaries;
+
         }
         private void SelectButtonStyle(Button button)
         {
             Style SelectStyle = FindResource("SelectedButtonStyle") as Style;
-            if (dictionaries[button.Name])
+            if (BtnShape[button.Name])
                 button.Style = SelectStyle;
             else
                 CasualButtonStyle(button);
@@ -134,9 +133,9 @@ namespace PZ1_PR132_2016
         private void MouseLeave(object sender, MouseEventArgs e)
         {
             foreach (Button temp in AllButons)
-                if (!temp.IsMouseOver && dictionaries.ContainsKey(temp.Name))
+                if (!temp.IsMouseOver && BtnShape.ContainsKey(temp.Name))
                 {
-                    if(dictionaries[temp.Name])
+                    if(BtnShape[temp.Name])
                     {
                         SelectButtonStyle(temp);
                     }
@@ -150,7 +149,7 @@ namespace PZ1_PR132_2016
 
         private void MyCanvas_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            foreach (var temp in dictionaries)
+            foreach (var temp in BtnShape)
                 if (temp.Value)
                 {
                     Point point = e.GetPosition(MyCanvas);
@@ -164,8 +163,24 @@ namespace PZ1_PR132_2016
         }
         void AddShapeOnCanvas()
         {
-          
-            MyCanvas.Children.Add(TransferClass.NewShape.Draw());
+            MyShape shape = TransferClass.NewShape;
+            TransferClass.ActiveShape.Push(shape);
+            MyCanvas.Children.Add(shape.Draw());
+        }
+
+        private void btnUndo_Click(object sender, RoutedEventArgs e)
+        {
+            MyShape shape = TransferClass.ActiveShape.Pop();
+            MyCanvas.Children.Remove(shape.Draw());
+            MyCanvas.Children.RemoveAt(MyCanvas.Children.Count - 1);
+            TransferClass.Undo.Push(shape);
+        }
+
+        private void btnRedo_Click(object sender, RoutedEventArgs e)
+        {
+            MyShape shape = TransferClass.Undo.Pop();
+            MyCanvas.Children.Add(shape.Draw());
+            TransferClass.ActiveShape.Push(shape);
         }
     }
 }

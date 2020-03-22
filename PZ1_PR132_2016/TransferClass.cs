@@ -10,10 +10,10 @@ namespace PZ1_PR132_2016
     public  class TransferClass
     {
         private static MyShape newShape;
-        private static Stack<MyShape> forUndo;
-        private static Stack<MyShape> forRedo;
-        private static Stack<MyShape> activeShape;
-        private static Stack<MyShape> clearShape;
+        private static Stack<MyShape> undo = new Stack<MyShape>();
+        private static Stack<MyShape> redo;
+        private static Stack<MyShape> activeShape = new Stack<MyShape>();
+        private static Stack<MyShape> clearShape = new Stack<MyShape>();
 
         public static MyShape NewShape { 
             get 
@@ -22,9 +22,10 @@ namespace PZ1_PR132_2016
                 return temp;
             }
              set => newShape = value; }
-        public static Stack<MyShape> ForUndo { get => forUndo; set => forUndo = value; }
-        public static Stack<MyShape> ForRedo { get => forRedo; set => forRedo = value; }
+  
         public static Stack<MyShape> ActiveShape { get => activeShape; set => activeShape = value; }
         public static Stack<MyShape> ClearShape  { get => clearShape; set => clearShape = value; }
+        public static Stack<MyShape> Undo{ get => undo; set => undo = value; }
+        public static Stack<MyShape> Redo { get => redo; set => redo = value; }
     }
 }

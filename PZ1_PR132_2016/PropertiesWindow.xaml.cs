@@ -46,7 +46,7 @@ namespace PZ1_PR132_2016
         }
         void ChooseTitle()
         {
-           foreach(var temp in MainWindow.dictionaries)
+           foreach(var temp in MainWindow.BtnShape)
                 if(temp.Value)
                 {
                    switch(temp.Key)

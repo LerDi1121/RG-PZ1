@@ -7,8 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Window.Resources>
-
-       
         <Style x:Key="ButtonStyleMouseOver" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -75,8 +73,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
-
     </Window.Resources>
     <Grid Background="LightGray">
         <StackPanel Height="44" VerticalAlignment="Top" Margin="10,5,10,0" Orientation="Horizontal" >
@@ -101,11 +97,11 @@
 
 
             <TextBlock TextWrapping="Wrap" FontSize="30" Text=" "/>
-            <Button  Width="100"  Content="Undo"  Style="{StaticResource ButtonStyle}"  Name="btnUndo" MouseEnter="MouseEnter" MouseLeave="MouseLeave">
+            <Button  Width="100"  Content="Undo"  Style="{StaticResource ButtonStyle}"  Name="btnUndo" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnUndo_Click">
 
             </Button>
             <TextBlock TextWrapping="Wrap" FontSize="30" Text=" "/>
-            <Button  Width="100"  Content="Redo"  Style="{StaticResource ButtonStyle}" Name="btnRedo" MouseEnter="MouseEnter" MouseLeave="MouseLeave">
+            <Button  Width="100"  Content="Redo"  Style="{StaticResource ButtonStyle}" Name="btnRedo" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnRedo_Click">
 
 
             </Button>
