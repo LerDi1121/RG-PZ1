@@ -18,6 +18,10 @@ namespace PZ1_PR132_2016.Models
             FilCollor = fillColor;
 
         }
+        public MyShape()
+        {
+                
+        }
         public Brush FilCollor { get => filCollor; set => filCollor = value; }
         public Brush BorderColor { get => borderColor; set => borderColor = value; }
         public int BorderThickness { get => borderThickness; set => borderThickness = value; }

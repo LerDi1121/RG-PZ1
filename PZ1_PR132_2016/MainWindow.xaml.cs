@@ -164,20 +164,26 @@ namespace PZ1_PR132_2016
         void AddShapeOnCanvas()
         {
             MyShape shape = TransferClass.NewShape;
+            if (shape == null)
+                return;
             TransferClass.ActiveShape.Push(shape);
             MyCanvas.Children.Add(shape.Draw());
         }
 
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
+            if (TransferClass.ActiveShape.Count == 0)
+                return;
             MyShape shape = TransferClass.ActiveShape.Pop();
-            MyCanvas.Children.Remove(shape.Draw());
+      
             MyCanvas.Children.RemoveAt(MyCanvas.Children.Count - 1);
             TransferClass.Undo.Push(shape);
         }
 
         private void btnRedo_Click(object sender, RoutedEventArgs e)
         {
+            if (TransferClass.Undo.Count == 0)
+                return;
             MyShape shape = TransferClass.Undo.Pop();
             MyCanvas.Children.Add(shape.Draw());
             TransferClass.ActiveShape.Push(shape);

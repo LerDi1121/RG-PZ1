@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -32,7 +33,17 @@ namespace PZ1_PR132_2016.Models
             ellipse.Stroke = BorderColor;
             ellipse.StrokeThickness = (double)BorderThickness;
             ellipse.Margin = new System.Windows.Thickness(coordinates.X_coordinate, coordinates.Y_coordinate,0,0);
+            ellipse.MouseLeftButtonDown += Ellipse_MouseLeftButtonDown; 
             return ellipse;
         }
+
+        private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+     
+
+        
     }
 }

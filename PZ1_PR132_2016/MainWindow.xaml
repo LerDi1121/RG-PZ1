@@ -40,13 +40,10 @@
                                         <GradientStop Color="WhiteSmoke"/>
                                     </LinearGradientBrush>
                                 </Ellipse.Fill>
-
-
                             </Ellipse>
                             <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>
                         </Grid>
-
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
