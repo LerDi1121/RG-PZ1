@@ -26,15 +26,16 @@ namespace PZ1_PR132_2016.Models
 
         public override Shape Draw()
         {
-            System.Windows.Shapes.Rectangle rectangle = new System.Windows.Shapes.Rectangle();
-            rectangle.Height = Height;
-            rectangle.Width = Width;
-            rectangle.Fill = FilCollor;
-            rectangle.Stroke = BorderColor;
-            rectangle.StrokeThickness = (double)BorderThickness;
-            rectangle.Margin = new System.Windows.Thickness(coordinates.X_coordinate, coordinates.Y_coordinate, 0, 0);
-            rectangle.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
-            return rectangle;
+            System.Windows.Shapes.Rectangle retVal = new System.Windows.Shapes.Rectangle();
+            retVal.Height = Height;
+            retVal.Width = Width;
+            retVal.Fill = FilCollor;
+            retVal.Stroke = BorderColor;
+            retVal.StrokeThickness = (double)BorderThickness;
+            retVal.Margin = new System.Windows.Thickness(coordinates.X_coordinate, coordinates.Y_coordinate, 0, 0);
+            retVal.MouseLeftButtonDown += Rectangle_MouseLeftButtonDown;
+            Shape = retVal;
+            return Shape;
         }
         private void Rectangle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

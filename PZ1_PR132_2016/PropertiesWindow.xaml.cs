@@ -29,6 +29,7 @@ namespace PZ1_PR132_2016
         static List<Button> AllButons;
         private Point PointToDraw;
         private string imgPath;
+        private List<Point> pointsForPolygon;
         public PropertiesWindow( Point point)
         {
             InitializeComponent();
@@ -40,7 +41,18 @@ namespace PZ1_PR132_2016
             PointToDraw = point;
             ChooseTitle();
         }
-   
+        public PropertiesWindow(List<Point> points)
+        {
+            InitializeComponent();
+            AllButons = new List<Button>() { btnCancel, btnDraw, btnFindImage };
+
+            cbBorder.ItemsSource = typeof(Colors).GetProperties();
+            cbFill.ItemsSource = typeof(Colors).GetProperties();
+
+            pointsForPolygon = points;
+            ChooseTitle();
+        }
+
         void ChooseTitle()
         {
            foreach(var temp in MainWindow.BtnShape)
@@ -61,6 +73,7 @@ namespace PZ1_PR132_2016
                         case "btnPolygon":
                             Title = "Draw a Polygon";
                             ShapeToDraw = MyShapeEnum.Polygon;
+                            PolygonWind();
                             break;
                         case "btnImage":
                             Title = "Draw a Image";
@@ -69,6 +82,16 @@ namespace PZ1_PR132_2016
                             break;
                     }
                 }
+        }
+        void PolygonWind()
+        {
+            tblokWidth.Style = (Style)FindResource("TextBlockDisabledStyle");
+            tbHeight.Style = (Style)FindResource("TextBlockDisabledStyle");
+            tbxWidth.IsEnabled = false;
+            tboxHeight.IsEnabled = false;
+            tbImage.Style = (Style)FindResource("TextBlockDisabledStyle");
+            btnFindImage.Style = (Style)FindResource("ButtonDisabledStyle");
+            btnFindImage.IsEnabled = false;
         }
         void RectangleWind()
         {
@@ -144,8 +167,10 @@ namespace PZ1_PR132_2016
                     RetVal = CreateImage();
                     break;
                 case MyShapeEnum.Polygon:
-
-                    break;
+                    if (!(ValidateColor(cbBorder) && ValidateColor(cbFill) && ValidateTexBox(tbBorderTh)))
+                        return;
+                    RetVal = Createpolygon();
+                        break;
 
             }
             TransferClass.NewShape = RetVal;
@@ -206,16 +231,24 @@ namespace PZ1_PR132_2016
             int height = Int32.Parse(tboxHeight.Text);
             return new MyImage(PointToDraw.X, PointToDraw.Y, width, height, imgPath);
         }
+        SolidColorBrush CreateColor(ComboBox comboBox)
+        {
+            var selectedItem = (PropertyInfo)comboBox.SelectedItem;
+            Color color = (Color)selectedItem.GetValue(null, null);
+            return new SolidColorBrush(color);
+        }
+        MyShape Createpolygon()
+        {
+            SolidColorBrush border = CreateColor(cbBorder);
+            SolidColorBrush Fill = CreateColor(cbFill);
+            int borderTh = Int32.Parse(tbBorderTh.Text);
+            return new MyPolygon(pointsForPolygon, Fill, border, borderTh);
+        }
         MyShape CreateRectangle()
         {
+            SolidColorBrush border = CreateColor(cbBorder);
+            SolidColorBrush Fill = CreateColor(cbFill);
 
-            var selectedItem = (PropertyInfo)cbBorder.SelectedItem;
-            Color color = (Color)selectedItem.GetValue(null, null);
-            SolidColorBrush border = new SolidColorBrush(color);
-
-            selectedItem = (PropertyInfo)cbFill.SelectedItem;
-            color = (Color)selectedItem.GetValue(null, null);
-            SolidColorBrush Fill = new SolidColorBrush(color);
             int width = Int32.Parse(tbxWidth.Text);
             int height = Int32.Parse(tboxHeight.Text);
             int borderTh = Int32.Parse(tbBorderTh.Text);
@@ -224,13 +257,9 @@ namespace PZ1_PR132_2016
         }
         MyShape CreateEllipse()
         {
-            var selectedItem = (PropertyInfo)cbBorder.SelectedItem;
-            Color color = (Color)selectedItem.GetValue(null, null);
-            SolidColorBrush border = new SolidColorBrush(color);
+            SolidColorBrush border = CreateColor(cbBorder);
+            SolidColorBrush Fill = CreateColor(cbFill);
 
-            selectedItem = (PropertyInfo)cbFill.SelectedItem;
-            color = (Color)selectedItem.GetValue(null, null);
-            SolidColorBrush Fill = new SolidColorBrush(color);
             int width = Int32.Parse(tbxWidth.Text);
             int height = Int32.Parse(tboxHeight.Text);
             int borderTh = Int32.Parse(tbBorderTh.Text);

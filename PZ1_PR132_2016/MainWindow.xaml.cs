@@ -21,7 +21,9 @@ namespace PZ1_PR132_2016
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Dictionary <string,bool> BtnShape ;
+        private static bool EnableDrawingPontForPolygon;
+        static private List<Point> PointForPolygon;
+        public static Dictionary<string, bool> BtnShape;
         static List<Button> AllButons;
         public MainWindow()
         {
@@ -34,57 +36,75 @@ namespace PZ1_PR132_2016
                 {btnRectangle.Name, false}
             };
             AllButons = new List<Button> { btnEllipse, btnImage, btnPolygon, btnRectangle, btnRedo, btnUndo, btnClear };
+            EnableDrawingPontForPolygon = false;
+            PointForPolygon = new List<Point>();
         }
 
 
 
         private void btnImage_Click(object sender, RoutedEventArgs e)
         {
-        
+
             Selectbutton(btnImage.Name);
             SelectButtonStyle(btnImage);
             CasualButtonStyle(btnPolygon);
             CasualButtonStyle(btnEllipse);
             CasualButtonStyle(btnRectangle);
-         
+            DisableDraingPoint();
 
         }
 
-            private void btnPolygon_Click(object sender, RoutedEventArgs e)
+        private void btnPolygon_Click(object sender, RoutedEventArgs e)
         {
+
             Selectbutton(btnPolygon.Name);
             SelectButtonStyle(btnPolygon);
+            EnebleDrawingPlygon();
             CasualButtonStyle(btnImage);
             CasualButtonStyle(btnEllipse);
             CasualButtonStyle(btnRectangle);
-               
+
         }
 
         private void btnEllipse_Click(object sender, RoutedEventArgs e)
         {
+            DisableDraingPoint();
             Selectbutton(btnEllipse.Name);
             SelectButtonStyle(btnEllipse);
             CasualButtonStyle(btnImage);
             CasualButtonStyle(btnPolygon);
             CasualButtonStyle(btnRectangle);
-           
-
-         
         }
 
         private void btnRectangle_Click(object sender, RoutedEventArgs e)
         {
+            DisableDraingPoint();
             Selectbutton(btnRectangle.Name);
 
-           
             CasualButtonStyle(btnPolygon);
             CasualButtonStyle(btnEllipse);
             CasualButtonStyle(btnImage);
             SelectButtonStyle(btnRectangle);
         }
-        private void Selectbutton(string btnName)
+        void EnebleDrawingPlygon()
         {
-          
+            if (!EnableDrawingPontForPolygon)
+            {
+                EnableDrawingPontForPolygon = true;
+            }
+            
+        }
+        void DisableDraingPoint()
+        {
+            if (EnableDrawingPontForPolygon)
+            {
+                EnableDrawingPontForPolygon = false;
+            }
+        }
+
+    private void Selectbutton(string btnName)
+        {
+
             foreach (var temp in BtnShape)
             {
                 if (temp.Key.Equals(btnName))
@@ -124,10 +144,10 @@ namespace PZ1_PR132_2016
 
         private void MouseEnter(object sender, MouseEventArgs e)
         {
-            foreach(Button temp in AllButons)
-                if(temp.IsMouseOver)
+            foreach (Button temp in AllButons)
+                if (temp.IsMouseOver)
                     MosueOverButtonStyle(temp);
-           
+
         }
 
         private void MouseLeave(object sender, MouseEventArgs e)
@@ -135,14 +155,14 @@ namespace PZ1_PR132_2016
             foreach (Button temp in AllButons)
                 if (!temp.IsMouseOver && BtnShape.ContainsKey(temp.Name))
                 {
-                    if(BtnShape[temp.Name])
+                    if (BtnShape[temp.Name])
                     {
                         SelectButtonStyle(temp);
                     }
                     else
-                    CasualButtonStyle(temp);
+                        CasualButtonStyle(temp);
                 }
-                  
+
                 else if (!temp.IsMouseOver)
                     CasualButtonStyle(temp);
         }
@@ -152,14 +172,22 @@ namespace PZ1_PR132_2016
             foreach (var temp in BtnShape)
                 if (temp.Value)
                 {
-                    Point point = e.GetPosition(MyCanvas);
+                    if (temp.Key.Equals(btnPolygon.Name) && EnableDrawingPontForPolygon)
+                    {
+                        PointForPolygon.Add(e.GetPosition(MyCanvas));
+                        return;
+                    }
+                   
+                    else
+                    {
+                        Point point = e.GetPosition(MyCanvas);
+                        PropertiesWindow propertiesWindow = new PropertiesWindow(point);
+                        propertiesWindow.ShowDialog();
+                        AddShapeOnCanvas();
+                    }
 
-
-                    PropertiesWindow propertiesWindow = new PropertiesWindow(point);
-                    propertiesWindow.ShowDialog();
-                    AddShapeOnCanvas();
                 }
-          
+
         }
         void AddShapeOnCanvas()
         {
@@ -172,12 +200,27 @@ namespace PZ1_PR132_2016
 
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
+
+            if (TransferClass.ClearShape.Count != 0)
+            {
+                UndoClearAction();
+                return;
+            }   
             if (TransferClass.ActiveShape.Count == 0)
                 return;
             MyShape shape = TransferClass.ActiveShape.Pop();
-      
+
             MyCanvas.Children.RemoveAt(MyCanvas.Children.Count - 1);
             TransferClass.Undo.Push(shape);
+        }
+        void UndoClearAction()
+        {
+            while (TransferClass.ClearShape.Count != 0)
+            {
+                MyShape temp = TransferClass.ClearShape.Pop();
+                MyCanvas.Children.Add(temp.Draw());
+                TransferClass.ActiveShape.Push(temp);
+            }
         }
 
         private void btnRedo_Click(object sender, RoutedEventArgs e)
@@ -187,6 +230,33 @@ namespace PZ1_PR132_2016
             MyShape shape = TransferClass.Undo.Pop();
             MyCanvas.Children.Add(shape.Draw());
             TransferClass.ActiveShape.Push(shape);
+        }
+
+        private void MyCanvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!EnableDrawingPontForPolygon)
+                return;
+
+              PointForPolygon = new List<Point>(PointForPolygon);
+                PropertiesWindow propertiesWindow = new PropertiesWindow(PointForPolygon);
+                propertiesWindow.ShowDialog();
+                PointForPolygon = new List<Point>();
+                AddShapeOnCanvas();
+
+            
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            while(TransferClass.ActiveShape.Count!=0)
+            {
+                TransferClass.ClearShape.Push(TransferClass.ActiveShape.Pop());
+                MyCanvas.Children.Clear();
+            }
+        }
+        void ChangeShape()
+        {
+
         }
     }
 }

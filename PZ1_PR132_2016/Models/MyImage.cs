@@ -41,21 +41,17 @@ namespace PZ1_PR132_2016.Models
             {
                 ImageSource = new BitmapImage(new Uri(path, UriKind.Absolute))
             };
-            return retVal;
+            retVal.MouseLeftButtonDown += RetVal_MouseLeftButtonDown;
+            Shape = retVal;
+            return Shape;
 
 
-            //System.Drawing.Rectangle retVal = new System.Drawing.Rectangle((int)coordinates.X_coordinate,(int)coordinates.Y_coordinate,width,height);
-            //Bitmap bitmap = new Bitmap( width, height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-            //using (Graphics graphics = Graphics.FromImage(bitmap))
-            //{
-            //    using (System.Drawing.SolidBrush myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red))
-            //    {
-            //        graphics.FillRectangle(myBrush, retVal); // whatever
-            //                                                 // and so on...
-            //    }
+          
+        }
 
-            //}
-            //bitmap.Save(path);
+        private void RetVal_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

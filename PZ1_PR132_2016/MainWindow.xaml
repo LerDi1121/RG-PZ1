@@ -103,13 +103,13 @@
 
             </Button>
             <TextBlock TextWrapping="Wrap" FontSize="30" Text=" "/>
-            <Button  Width="100"  Content="Clear"  Style="{StaticResource ButtonStyle}" Name="btnClear" MouseEnter="MouseEnter" MouseLeave="MouseLeave">
+            <Button  Width="100"  Content="Clear"  Style="{StaticResource ButtonStyle}" Name="btnClear" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnClear_Click">
 
             </Button>
 
         </StackPanel>
         <Separator Margin="0,54,2,496" />
-        <Canvas Name="MyCanvas" Background="FloralWhite" Margin="10,73,10,10" PreviewMouseRightButtonDown="MyCanvas_PreviewMouseRightButtonDown"/>
+        <Canvas Name="MyCanvas" Background="FloralWhite" Margin="10,73,10,10" PreviewMouseRightButtonDown="MyCanvas_PreviewMouseRightButtonDown" PreviewMouseLeftButtonDown="MyCanvas_PreviewMouseLeftButtonDown"/>
 
 
     </Grid >
