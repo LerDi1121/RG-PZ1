@@ -62,8 +62,8 @@
     <Compile Include="Models\MyImage.cs" />
     <Compile Include="Models\MyPolygon.cs" />
     <Compile Include="Models\MyRectangle.cs" />
-    <Compile Include="Models\ShapeProperties.cs" />
     <Compile Include="TransferClass.cs" />
+    <Compile Include="ValidateClass.cs" />
     <Page Include="ChangePropertiesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

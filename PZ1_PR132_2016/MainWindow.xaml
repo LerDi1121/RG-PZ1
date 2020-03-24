@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800">
     <Window.Resources>
+        <Canvas x:Key="ResourceCanvas" x:Shared="False">
+            <Rectangle Width="100" Stroke="Red" Height="100"></Rectangle>
+        </Canvas>
         <Style x:Key="ButtonStyleMouseOver" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
@@ -110,7 +113,6 @@
         </StackPanel>
         <Separator Margin="0,54,2,496" />
         <Canvas Name="MyCanvas" Background="FloralWhite" Margin="10,73,10,10" PreviewMouseRightButtonDown="MyCanvas_PreviewMouseRightButtonDown" PreviewMouseLeftButtonDown="MyCanvas_PreviewMouseLeftButtonDown"/>
-
-
+      
     </Grid >
 </Window>

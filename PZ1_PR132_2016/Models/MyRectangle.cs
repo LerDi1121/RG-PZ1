@@ -26,6 +26,8 @@ namespace PZ1_PR132_2016.Models
 
         public override Shape Draw()
         {
+            if (Shape != null)
+                return Shape;
             System.Windows.Shapes.Rectangle retVal = new System.Windows.Shapes.Rectangle();
             retVal.Height = Height;
             retVal.Width = Width;

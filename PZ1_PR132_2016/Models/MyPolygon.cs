@@ -21,6 +21,8 @@ namespace PZ1_PR132_2016.Models
 
         public override Shape Draw()
         {
+            if (Shape != null)
+                return Shape;
             Polygon retVal = new Polygon();
             retVal.Stroke = BorderColor;
             retVal.Fill = FilCollor;

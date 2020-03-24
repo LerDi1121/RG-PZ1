@@ -19,6 +19,7 @@ namespace PZ1_PR132_2016.Models
             FilCollor = fillColor;
             BorderColor = borderColor;
             BorderThickness = borderThickness;
+            shape = null;
         }
         public MyShape()
         {

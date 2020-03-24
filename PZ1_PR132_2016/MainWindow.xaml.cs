@@ -25,6 +25,7 @@ namespace PZ1_PR132_2016
         static private List<Point> PointForPolygon;
         public static Dictionary<string, bool> BtnShape;
         static List<Button> AllButons;
+     //   private Canvas MyCanvas = (Canvas)FindResource("ResourceCanvas"); //ResourceCanvas
         public MainWindow()
         {
             InitializeComponent();
@@ -50,7 +51,7 @@ namespace PZ1_PR132_2016
             CasualButtonStyle(btnPolygon);
             CasualButtonStyle(btnEllipse);
             CasualButtonStyle(btnRectangle);
-            DisableDraingPoint();
+            DisableDrawingPoint();
 
         }
 
@@ -68,7 +69,7 @@ namespace PZ1_PR132_2016
 
         private void btnEllipse_Click(object sender, RoutedEventArgs e)
         {
-            DisableDraingPoint();
+            DisableDrawingPoint();
             Selectbutton(btnEllipse.Name);
             SelectButtonStyle(btnEllipse);
             CasualButtonStyle(btnImage);
@@ -78,7 +79,7 @@ namespace PZ1_PR132_2016
 
         private void btnRectangle_Click(object sender, RoutedEventArgs e)
         {
-            DisableDraingPoint();
+            DisableDrawingPoint();
             Selectbutton(btnRectangle.Name);
 
             CasualButtonStyle(btnPolygon);
@@ -91,10 +92,15 @@ namespace PZ1_PR132_2016
             if (!EnableDrawingPontForPolygon)
             {
                 EnableDrawingPontForPolygon = true;
+                PointForPolygon = new List<Point>();
+            }
+            else
+            {
+                DisableDrawingPoint();
             }
             
         }
-        void DisableDraingPoint()
+        void DisableDrawingPoint()
         {
             if (EnableDrawingPontForPolygon)
             {
@@ -254,7 +260,9 @@ namespace PZ1_PR132_2016
                 MyCanvas.Children.Clear();
             }
         }
-        void ChangeShape()
+       
+           
+        void ChangeShape(Shape shape)
         {
 
         }

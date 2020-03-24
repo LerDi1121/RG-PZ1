@@ -22,7 +22,7 @@ namespace PZ1_PR132_2016
     /// Interaction logic for PropertiesWindow.xaml
     /// </summary>
     
-        internal enum MyShapeEnum { Elipse, Rectangle , Polygon , Image }
+        public enum MyShapeEnum { Elipse, Rectangle , Polygon , Image }
     public partial class PropertiesWindow : Window
     {
         private MyShapeEnum ShapeToDraw;
@@ -162,7 +162,7 @@ namespace PZ1_PR132_2016
 
                    break;
                 case MyShapeEnum.Image:
-                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateImagePath()))
+                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateImagePath(imgPath)))
                         return;
                     RetVal = CreateImage();
                     break;
@@ -178,53 +178,31 @@ namespace PZ1_PR132_2016
        
             Close();
         }
-        bool ValidateImagePath()
+         bool ValidateImagePath(string path)
         {
-            if(imgPath.Equals(string.Empty))
-            {
-                MessageBox.Show("Please select an image file!");
-                return false;
-            }
-            return true;
+            return ValidateClass.ValidateImagePath(path);
         }
-        bool ValidateColor(ComboBox comboBox)
+         bool ValidateColor(ComboBox comboBox)
         {
-            if (cbBorder.SelectedItem == null)
+            if (!ValidateClass.ValidateColor(comboBox))
             {
                 comboBox.BorderBrush = Brushes.Red;
-                MessageBox.Show("Select color!");
                 return false;
             }
             comboBox.BorderBrush = Brushes.LightGray;
-
             return true;
         }
-        bool ValidateTexBox( TextBox textBox)
+         bool ValidateTexBox(TextBox textBox)
         {
-            if(textBox.Text.Length==0 || string.IsNullOrEmpty(textBox.Text))
+            if (!ValidateClass.ValidateTexBox(textBox))
             {
                 textBox.Style = (Style)FindResource("TextboxErrorStyle");
-                MessageBox.Show("Insert number!");
                 return false;
-
             }
 
-            int num = 0;
-            if(!Int32.TryParse(textBox.Text, out num))
-            {
-                textBox.Style = (Style)FindResource("TextboxErrorStyle");
-                MessageBox.Show("Insert number!");
-                return false;
-            }
-            if(num<0)
-            {
-                textBox.Style = (Style)FindResource("TextboxErrorStyle");
-                MessageBox.Show("Number must be greater than zero!");
-                return false;
-            }
-            textBox.Style = (Style)FindResource("TextboxStyle");
             return true;
         }
+
         MyShape CreateImage()
         {
             int width = Int32.Parse(tbxWidth.Text);

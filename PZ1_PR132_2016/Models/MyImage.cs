@@ -29,7 +29,9 @@ namespace PZ1_PR132_2016.Models
 
         public override Shape Draw()
         {
-        
+            if (Shape != null)
+                return Shape;
+
             System.Windows.Shapes.Rectangle retVal = new System.Windows.Shapes.Rectangle();
             retVal.Margin = new System.Windows.Thickness(coordinates.X_coordinate, coordinates.Y_coordinate, 0, 0);
             retVal.Height = Height;

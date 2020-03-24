@@ -27,6 +27,8 @@ namespace PZ1_PR132_2016.Models
        
         public override  Shape Draw()
         {
+            if (Shape != null)
+                return Shape;
             Ellipse retVal = new Ellipse();
             retVal.Height = Height;
             retVal.Width = Width;
@@ -41,7 +43,9 @@ namespace PZ1_PR132_2016.Models
 
         private void Ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            ChangePropertiesWindow changePropertiesWindow = new ChangePropertiesWindow(this, MyShapeEnum.Elipse);
+            changePropertiesWindow.ShowDialog();
+
         }
 
      
