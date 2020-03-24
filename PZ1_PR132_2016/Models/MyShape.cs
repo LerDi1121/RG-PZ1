@@ -16,7 +16,8 @@ namespace PZ1_PR132_2016.Models
         public MyShape( Brush fillColor, Brush borderColor, int borderThickness)
         {
             FilCollor = fillColor;
-
+            BorderColor = borderColor;
+            BorderThickness = borderThickness;
         }
         public MyShape()
         {

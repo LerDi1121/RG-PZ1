@@ -60,6 +60,8 @@
       <DependentUpon>ChangePropertiesWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\MyImage.cs" />
+    <Compile Include="Models\MyPolygon.cs" />
+    <Compile Include="Models\MyRectangle.cs" />
     <Compile Include="Models\ShapeProperties.cs" />
     <Compile Include="TransferClass.cs" />
     <Page Include="ChangePropertiesWindow.xaml">

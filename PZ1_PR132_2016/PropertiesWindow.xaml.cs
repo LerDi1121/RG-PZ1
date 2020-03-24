@@ -56,6 +56,7 @@ namespace PZ1_PR132_2016
                         case "btnRectangle":
                             Title = "Draw a Rectangle";
                             ShapeToDraw = MyShapeEnum.Rectangle;
+                            RectangleWind();
                             break;
                         case "btnPolygon":
                             Title = "Draw a Polygon";
@@ -68,6 +69,10 @@ namespace PZ1_PR132_2016
                             break;
                     }
                 }
+        }
+        void RectangleWind()
+        {
+            EllipseWind();
         }
         void ImageWind()
         {
@@ -128,7 +133,11 @@ namespace PZ1_PR132_2016
                     break;
                 case MyShapeEnum.Rectangle:
 
-                    break;
+                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
+                        return;
+                    RetVal = CreateRectangle();
+
+                   break;
                 case MyShapeEnum.Image:
                     if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateImagePath()))
                         return;
@@ -197,6 +206,22 @@ namespace PZ1_PR132_2016
             int height = Int32.Parse(tboxHeight.Text);
             return new MyImage(PointToDraw.X, PointToDraw.Y, width, height, imgPath);
         }
+        MyShape CreateRectangle()
+        {
+
+            var selectedItem = (PropertyInfo)cbBorder.SelectedItem;
+            Color color = (Color)selectedItem.GetValue(null, null);
+            SolidColorBrush border = new SolidColorBrush(color);
+
+            selectedItem = (PropertyInfo)cbFill.SelectedItem;
+            color = (Color)selectedItem.GetValue(null, null);
+            SolidColorBrush Fill = new SolidColorBrush(color);
+            int width = Int32.Parse(tbxWidth.Text);
+            int height = Int32.Parse(tboxHeight.Text);
+            int borderTh = Int32.Parse(tbBorderTh.Text);
+
+            return new MyRectangle(PointToDraw.X, PointToDraw.Y, width, height, Fill,border, borderTh);
+        }
         MyShape CreateEllipse()
         {
             var selectedItem = (PropertyInfo)cbBorder.SelectedItem;
@@ -210,12 +235,12 @@ namespace PZ1_PR132_2016
             int height = Int32.Parse(tboxHeight.Text);
             int borderTh = Int32.Parse(tbBorderTh.Text);
 
-           return new MyEllipse(PointToDraw.X, PointToDraw.Y, width, height, border, Fill, borderTh);
+           return new MyEllipse(PointToDraw.X, PointToDraw.Y, width, height,  Fill, border, borderTh);
         }
         private void btnFindImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png|vAll files (*.*)|*.*";
+            dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png| sAll files (*.*)|*.*";
           
             dialog.InitialDirectory = @"C:\";
             dialog.Title = "Please select an image file.";
