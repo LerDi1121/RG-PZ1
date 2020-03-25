@@ -53,12 +53,15 @@ namespace PZ1_PR132_2016
                     break;
                 case MyShapeEnum.Image:
                     ImageWind();
+                    ImageData();
                     break;
                 case MyShapeEnum.Polygon:
                     PolygonWind();
+                    PolygonData();
                     break;
                 case MyShapeEnum.Rectangle:
                     RectangleWind();
+                    RectangleData();
                     break;
             }
         }
@@ -69,9 +72,44 @@ namespace PZ1_PR132_2016
             var item = list.First(x => x.Name == temp);
             comboBox.SelectedItem = item;
         }
+        void PolygonData()
+        {
+            Polygon shape = (Polygon)ShapeToChange.Shape;
+            DataInTextBox(tbBorderTh, shape.StrokeThickness);
+            SelectColorInCombobox(cbBorder, shape.Stroke);
+            SelectColorInCombobox(cbFill, shape.Fill);
+        }
+        void DataInImage(string path)
+        {
+            BitmapImage logo = new BitmapImage();
+            logo.BeginInit();
+            logo.UriSource = new Uri(path);
+            
+            logo.EndInit();
+            imgImage.Source = logo;
+        }
         void DataInTextBox(TextBox textBox, double number)
         {
             textBox.Text = number.ToString();
+
+        }
+        void ImageData()
+        {
+            MyImage shape = (MyImage)ShapeToChange;
+            DataInTextBox(tbxWidth, shape.Width);
+            DataInTextBox(tboxHeight, shape.Height);
+            DataInImage(shape.Path);
+
+
+        }
+        void RectangleData()
+        {
+            Rectangle shape = (Rectangle)ShapeToChange.Shape;
+            DataInTextBox(tbBorderTh, shape.StrokeThickness);
+            DataInTextBox(tbxWidth, shape.Width);
+            DataInTextBox(tboxHeight, shape.Height);
+            SelectColorInCombobox(cbBorder, shape.Stroke);
+            SelectColorInCombobox(cbFill, shape.Fill);
         }
         void EllipseData()
         {
@@ -154,27 +192,53 @@ namespace PZ1_PR132_2016
                     if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
                         return;
                     UpdateEllipse((MyEllipse)ShapeToChange);
-                    MainWindow.ChangeShapeDel(ShapeToChange);
+                   
                     break;
                 case MyShapeEnum.Rectangle:
 
                     if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
                         return;
-                  
-
-                    break;
+                    UpdateRectangle((MyRectangle)ShapeToChange);
+                                        break;
                 case MyShapeEnum.Image:
                     if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateImagePath(imgPath)))
                         return;
-                   
+                    UpdateImage((MyImage)ShapeToChange);
                     break;
                 case MyShapeEnum.Polygon:
                     if (!(ValidateColor(cbBorder) && ValidateColor(cbFill) && ValidateTexBox(tbBorderTh)))
                         return;
-                    
+                    UpdatePolygon((MyPolygon)ShapeToChange);
                     break;
+                    
             }
+            MainWindow.ChangeShapeDel(ShapeToChange);
             Close();
+        }
+        void UpdatePolygon(MyPolygon polygon)
+        {
+            SolidColorBrush border = CreateColor(cbBorder);
+            SolidColorBrush Fill = CreateColor(cbFill);
+            int borderTh = Int32.Parse(tbBorderTh.Text);
+            polygon.UpdateShape(Fill, border, borderTh);
+
+        }
+         void  UpdateImage(MyImage image)
+        {
+            int width = Int32.Parse(tbxWidth.Text);
+            int height = Int32.Parse(tboxHeight.Text);
+
+            image.UpdateShape(width, height, imgPath);
+        }
+        void UpdateRectangle(MyRectangle rectangle)
+        {
+            SolidColorBrush border = CreateColor(cbBorder);
+            SolidColorBrush Fill = CreateColor(cbFill);
+
+            int width = Int32.Parse(tbxWidth.Text);
+            int height = Int32.Parse(tboxHeight.Text);
+            int borderTh = Int32.Parse(tbBorderTh.Text);
+            rectangle.UpdateShape(width, height, Fill, border, borderTh);
         }
         void UpdateEllipse(MyEllipse ellipse)
         {

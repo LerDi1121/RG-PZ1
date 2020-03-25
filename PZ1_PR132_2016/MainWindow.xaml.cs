@@ -69,6 +69,7 @@ namespace PZ1_PR132_2016
             CasualButtonStyle(btnImage);
             CasualButtonStyle(btnEllipse);
             CasualButtonStyle(btnRectangle);
+            
 
         }
 
@@ -96,6 +97,8 @@ namespace PZ1_PR132_2016
         {
             if (!EnableDrawingPontForPolygon)
             {
+                MyCanvas.MouseLeftButtonDown += MyCanvas_MouseLeftButtonDown;
+
                 EnableDrawingPontForPolygon = true;
                 PointForPolygon = new List<Point>();
             }
@@ -110,6 +113,8 @@ namespace PZ1_PR132_2016
             if (EnableDrawingPontForPolygon)
             {
                 EnableDrawingPontForPolygon = false;
+                MyCanvas.MouseLeftButtonDown -= MyCanvas_MouseLeftButtonDown;
+
             }
         }
 
@@ -243,18 +248,23 @@ namespace PZ1_PR132_2016
             TransferClass.ActiveShape.Push(shape);
         }
 
-        private void MyCanvas_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void MyCanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (!EnableDrawingPontForPolygon)
                 return;
+            if (PointForPolygon.Count == 0)
+                return;
+
 
               PointForPolygon = new List<Point>(PointForPolygon);
                 PropertiesWindow propertiesWindow = new PropertiesWindow(PointForPolygon);
                 propertiesWindow.ShowDialog();
                 PointForPolygon = new List<Point>();
                 AddShapeOnCanvas();
+           
 
-            
+
+
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)

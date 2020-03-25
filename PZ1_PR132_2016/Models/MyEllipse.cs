@@ -55,6 +55,12 @@ namespace PZ1_PR132_2016.Models
             Shape.Width = width;
             Shape.Fill = fillColor;
             Shape.Stroke = borderColor;
+            Shape.StrokeThickness = borderThickness;
+            Height = height;
+            Width = width;
+            FilCollor = fillColor;
+            BorderColor = borderColor;
+            BorderThickness = borderThickness;
         }
 
 

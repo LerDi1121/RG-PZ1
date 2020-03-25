@@ -112,7 +112,7 @@
 
         </StackPanel>
         <Separator Margin="0,54,2,496" />
-        <Canvas Name="MyCanvas" Background="FloralWhite" Margin="10,73,10,10" PreviewMouseRightButtonDown="MyCanvas_PreviewMouseRightButtonDown" PreviewMouseLeftButtonDown="MyCanvas_PreviewMouseLeftButtonDown"/>
+        <Canvas Name="MyCanvas" Background="FloralWhite" Margin="10,73,10,10" PreviewMouseRightButtonDown="MyCanvas_PreviewMouseRightButtonDown" />
       
     </Grid >
 </Window>

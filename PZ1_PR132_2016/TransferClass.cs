@@ -11,7 +11,6 @@ namespace PZ1_PR132_2016
     {
         private static MyShape newShape;
         private static Stack<MyShape> undo = new Stack<MyShape>();
-        private static Stack<MyShape> redo;
         private static Stack<MyShape> activeShape = new Stack<MyShape>();
         private static Stack<MyShape> clearShape = new Stack<MyShape>();
 
@@ -26,6 +25,6 @@ namespace PZ1_PR132_2016
         public static Stack<MyShape> ActiveShape { get => activeShape; set => activeShape = value; }
         public static Stack<MyShape> ClearShape  { get => clearShape; set => clearShape = value; }
         public static Stack<MyShape> Undo{ get => undo; set => undo = value; }
-        public static Stack<MyShape> Redo { get => redo; set => redo = value; }
+       
     }
 }

@@ -53,7 +53,25 @@ namespace PZ1_PR132_2016.Models
 
         private void RetVal_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            ChangePropertiesWindow changePropertiesWindow = new ChangePropertiesWindow(this, MyShapeEnum.Image);
+            changePropertiesWindow.ShowDialog();
+
+        }
+        public void UpdateShape(int width, int height, string path)
+        {
+            if (Shape == null)
+                return;
+            Shape.Height = height;
+      
+            Shape.Width = width;
+            Shape.Fill = new ImageBrush
+            {
+                ImageSource = new BitmapImage(new Uri(path, UriKind.Absolute))
+            };
+            Height = height;
+            Width = width;
+            Path = path;
+
         }
     }
 }
