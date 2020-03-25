@@ -20,14 +20,19 @@ namespace PZ1_PR132_2016
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
+        
     {
+        public delegate void Del(MyShape shape);
+
         private static bool EnableDrawingPontForPolygon;
         static private List<Point> PointForPolygon;
         public static Dictionary<string, bool> BtnShape;
         static List<Button> AllButons;
-     //   private Canvas MyCanvas = (Canvas)FindResource("ResourceCanvas"); //ResourceCanvas
+        public static Del ChangeShapeDel;
+        //   private Canvas MyCanvas = (Canvas)FindResource("ResourceCanvas"); //ResourceCanvas
         public MainWindow()
         {
+            ChangeShapeDel= ChangeShapeMethod;
             InitializeComponent();
             BtnShape = new Dictionary<string, bool>
             {
@@ -261,10 +266,14 @@ namespace PZ1_PR132_2016
             }
         }
        
-           
-        void ChangeShape(Shape shape)
+       
+            
+       public  void ChangeShapeMethod(MyShape shape)
         {
-
+           int index= MyCanvas.Children.IndexOf(shape.Shape);
+            MyCanvas.Children.RemoveAt(index);
+            MyCanvas.Children.Insert(index, shape.Shape);
+            
         }
     }
 }

@@ -62,23 +62,25 @@ namespace PZ1_PR132_2016
                     break;
             }
         }
+        void SelectColorInCombobox(ComboBox comboBox, Brush brush)
+        {
+            var list = typeof(Colors).GetProperties();
+            string temp = GetColorName((SolidColorBrush)brush);
+            var item = list.First(x => x.Name == temp);
+            comboBox.SelectedItem = item;
+        }
+        void DataInTextBox(TextBox textBox, double number)
+        {
+            textBox.Text = number.ToString();
+        }
         void EllipseData()
         {
             Ellipse shape = (Ellipse)ShapeToChange.Shape;
-            tbBorderTh.Text= shape.StrokeThickness.ToString();
-            tbxWidth.Text = shape.Width.ToString();
-            tboxHeight.Text = shape.Height.ToString();
-            var list = typeof(Colors).GetProperties();
-
-            SolidColorBrush temp = (SolidColorBrush)shape.Fill;
-            Color tempColor = temp.Color;
-            var item = list.First(x => x.Name == tempColor.ToString();
-
-            PropertyInfo colorProperty = typeof(Colors).GetProperties()
-            .FirstOrDefault(p => Color.AreClose((Color)(shape.Fill.GetValue(null)), tempColor));
-            cbBorder.SelectedItem = colorProperty;
-          
-
+            DataInTextBox(tbBorderTh, shape.StrokeThickness);          
+            DataInTextBox(tbxWidth, shape.Width);          
+            DataInTextBox(tboxHeight, shape.Height);
+            SelectColorInCombobox(cbBorder, shape.Stroke);
+            SelectColorInCombobox(cbFill, shape.Fill);
         }
         void PolygonWind()
         {
@@ -89,6 +91,12 @@ namespace PZ1_PR132_2016
             tbImage.Style = (Style)FindResource("TextBlockDisabledStyle");
             btnFindImage.Style = (Style)FindResource("ButtonDisabledStyle");
             btnFindImage.IsEnabled = false;
+        }
+        private string GetColorName(SolidColorBrush brush)
+        {
+            var results = typeof(Colors).GetProperties().Where(
+             p => (Color)p.GetValue(null, null) == brush.Color).Select(p => p.Name);
+            return results.Count() > 0 ? results.First() : String.Empty;
         }
         void RectangleWind()
         {
@@ -103,7 +111,6 @@ namespace PZ1_PR132_2016
             cbFill.IsEnabled = false;
             cbBorder.IsEnabled = false;
             tbBorderTh.IsEnabled = false;
-
         }
         void EllipseWind()
         {
@@ -137,13 +144,77 @@ namespace PZ1_PR132_2016
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-
             Close();
         }
         private void btnDraw_Click(object sender, RoutedEventArgs e)
         {
-           
+            switch (myShapeEnum)
+            {
+                case MyShapeEnum.Elipse:
+                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
+                        return;
+                    UpdateEllipse((MyEllipse)ShapeToChange);
+                    MainWindow.ChangeShapeDel(ShapeToChange);
+                    break;
+                case MyShapeEnum.Rectangle:
+
+                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
+                        return;
+                  
+
+                    break;
+                case MyShapeEnum.Image:
+                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateImagePath(imgPath)))
+                        return;
+                   
+                    break;
+                case MyShapeEnum.Polygon:
+                    if (!(ValidateColor(cbBorder) && ValidateColor(cbFill) && ValidateTexBox(tbBorderTh)))
+                        return;
+                    
+                    break;
+            }
             Close();
+        }
+        void UpdateEllipse(MyEllipse ellipse)
+        {
+            SolidColorBrush border = CreateColor(cbBorder);
+            SolidColorBrush Fill = CreateColor(cbFill);
+
+            int width = Int32.Parse(tbxWidth.Text);
+            int height = Int32.Parse(tboxHeight.Text);
+            int borderTh = Int32.Parse(tbBorderTh.Text);
+            ellipse.UpdateShape(width, height, Fill, border, borderTh);
+        }
+        SolidColorBrush CreateColor(ComboBox comboBox)
+        {
+            var selectedItem = (PropertyInfo)comboBox.SelectedItem;
+            Color color = (Color)selectedItem.GetValue(null, null);
+            return new SolidColorBrush(color);
+        }
+        bool ValidateImagePath(string path)
+        {
+            return ValidateClass.ValidateImagePath(path);
+        }
+        bool ValidateColor(ComboBox comboBox)
+        {
+            if (!ValidateClass.ValidateColor(comboBox))
+            {
+                comboBox.BorderBrush = Brushes.Red;
+                return false;
+            }
+            comboBox.BorderBrush = Brushes.LightGray;
+            return true;
+        }
+        bool ValidateTexBox(TextBox textBox)
+        {
+            if (!ValidateClass.ValidateTexBox(textBox))
+            {
+                textBox.Style = (Style)FindResource("TextboxErrorStyle");
+                return false;
+            }
+
+            return true;
         }
         private void btnFindImage_Click(object sender, RoutedEventArgs e)
         {
