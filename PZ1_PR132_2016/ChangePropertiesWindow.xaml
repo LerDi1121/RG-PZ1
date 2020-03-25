@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PZ1_PR132_2016"
         mc:Ignorable="d"
-        Title="ChangePropertiesWindow" Height="450" Width="800">
+        Title="ChangePropertiesWindow" Height="350.395" Width="800">
     <Window.Resources>
         <Style x:Key="TextBlockStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="20" />
@@ -96,19 +96,15 @@
         </Style>
 
     </Window.Resources>
-    <Grid Background="LightGray">
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Height="40" Margin="82,334,0,0" VerticalAlignment="Top" Width="175" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnCancel_Click"/>
+    <Grid Background="LightGray" Margin="0,0,0,0">
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Height="40" Margin="87,256,0,0" VerticalAlignment="Top" Width="175" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnCancel_Click"/>
 
-        <Button x:Name="btnDraw" Content="Save" Height="40" Margin="492,334,125,0" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnDraw_Click"/>
-        <TextBlock Name="tblokWidth" HorizontalAlignment="Left"  Margin="82,19,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}" Text="Width:"/>
-        <TextBlock Name="tbBorderThicknes" HorizontalAlignment="Left"  Margin="82,190,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}"  Text="Border Thickness:"/>
-        <TextBlock Name="tbBorderColor" HorizontalAlignment="Left"  Margin="82,147,0,0" TextWrapping="Wrap" Text="Border Color :"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}" Height="37" />
-        <TextBlock Name="tbFillColor"  HorizontalAlignment="Left"  Margin="82,105,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}"><Run Text="Fill "/><Run Text="Color:"/></TextBlock>
-        <TextBlock Name="tbHeight" HorizontalAlignment="Left"  Margin="82,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Style="{StaticResource TextBlockStyle}" Text="Height:"/>
-        <TextBox Name="tbxWidth" HorizontalAlignment="Left"  Margin="467,19,0,0" TextWrapping="Wrap" Text="" ToolTip="Enter the number" VerticalAlignment="Top"  Style="{StaticResource TextboxStyle}"/>
-        <TextBox Name="tboxHeight" HorizontalAlignment="Left"  Margin="467,62,0,0" TextWrapping="Wrap"  Text="" ToolTip="Enter the number" VerticalAlignment="Top" Style="{StaticResource TextboxStyle}"/>
-        <TextBox Name="tbBorderTh" HorizontalAlignment="Left"  Margin="467,190,0,0" TextWrapping="Wrap"  Text="" ToolTip="Enter the number" VerticalAlignment="Top" Style="{StaticResource TextboxStyle}"/>
-        <ComboBox x:Name="cbFill" HorizontalAlignment="Left" Height="35" Margin="467,105,0,0" VerticalAlignment="Top" Width="200" BorderBrush="LightGray">
+        <Button x:Name="btnDraw" Content="Save" Height="40" Margin="497,256,120,0" VerticalAlignment="Top" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnDraw_Click"/>
+        <TextBlock Name="tbBorderThicknes" HorizontalAlignment="Left"  Margin="87,112,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}"  Text="Border Thickness:"/>
+        <TextBlock Name="tbBorderColor" HorizontalAlignment="Left"  Margin="87,69,0,0" TextWrapping="Wrap" Text="Border Color :"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}" Height="37" />
+        <TextBlock Name="tbFillColor"  HorizontalAlignment="Left"  Margin="87,27,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}"><Run Text="Fill "/><Run Text="Color:"/></TextBlock>
+        <TextBox Name="tbBorderTh" HorizontalAlignment="Left"  Margin="472,112,0,0" TextWrapping="Wrap"  Text="" ToolTip="Enter the number" VerticalAlignment="Top" Style="{StaticResource TextboxStyle}"/>
+        <ComboBox x:Name="cbFill" HorizontalAlignment="Left" Height="35" Margin="472,27,0,0" VerticalAlignment="Top" Width="200" BorderBrush="LightGray">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -119,7 +115,7 @@
 
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox x:Name="cbBorder" HorizontalAlignment="Left" Height="35" Margin="467,147,0,0" VerticalAlignment="Top" Width="200" BorderBrush="LightGray">
+        <ComboBox x:Name="cbBorder" HorizontalAlignment="Left" Height="35" Margin="472,69,0,0" VerticalAlignment="Top" Width="200" BorderBrush="LightGray">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -130,9 +126,9 @@
 
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBlock Name="tbImage" HorizontalAlignment="Left"  Margin="82,230,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}"  Text="Image:"/>
-        <Button x:Name="btnFindImage" Content="Find image" HorizontalAlignment="Left" Height="40" Margin="492,230,0,0" VerticalAlignment="Top" Width="175" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnFindImage_Click"/>
-        <Image Name="imgImage" HorizontalAlignment="Left" Height="100" Margin="287,230,0,0" VerticalAlignment="Top" Width="150"/>
+        <TextBlock Name="tbImage" HorizontalAlignment="Left"  Margin="87,152,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Style="{StaticResource TextBlockStyle}"  Text="Image:"/>
+        <Button x:Name="btnFindImage" Content="Find image" HorizontalAlignment="Left" Height="40" Margin="497,152,0,0" VerticalAlignment="Top" Width="175" Style="{StaticResource ButtonStyle}" MouseEnter="MouseEnter" MouseLeave="MouseLeave" Click="btnFindImage_Click"/>
+        <Image Name="imgImage" HorizontalAlignment="Left" Height="100" Margin="292,152,0,0" VerticalAlignment="Top" Width="150"/>
 
     </Grid>
 </Window>

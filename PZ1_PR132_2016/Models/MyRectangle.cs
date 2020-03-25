@@ -45,17 +45,14 @@ namespace PZ1_PR132_2016.Models
             ChangePropertiesWindow changePropertiesWindow = new ChangePropertiesWindow(this, MyShapeEnum.Rectangle);
             changePropertiesWindow.ShowDialog();
         }
-        public void UpdateShape(int width, int height, Brush fillColor, Brush borderColor, int borderThickness)
+        public void UpdateShape( Brush fillColor, Brush borderColor, int borderThickness)
         {
             if (Shape == null)
                 return;
-            Shape.Height = height;
-            Shape.Width = width;
+
             Shape.Fill =  fillColor;
             Shape.Stroke = borderColor;
             Shape.StrokeThickness = borderThickness;
-            Height = height;
-            Width = width;
             FilCollor = fillColor;
             BorderColor = borderColor;
             BorderThickness = borderThickness;

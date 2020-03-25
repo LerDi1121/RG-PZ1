@@ -96,9 +96,7 @@ namespace PZ1_PR132_2016
         void ImageData()
         {
             MyImage shape = (MyImage)ShapeToChange;
-            DataInTextBox(tbxWidth, shape.Width);
-            DataInTextBox(tboxHeight, shape.Height);
-            DataInImage(shape.Path);
+              DataInImage(shape.Path);
 
 
         }
@@ -106,8 +104,6 @@ namespace PZ1_PR132_2016
         {
             Rectangle shape = (Rectangle)ShapeToChange.Shape;
             DataInTextBox(tbBorderTh, shape.StrokeThickness);
-            DataInTextBox(tbxWidth, shape.Width);
-            DataInTextBox(tboxHeight, shape.Height);
             SelectColorInCombobox(cbBorder, shape.Stroke);
             SelectColorInCombobox(cbFill, shape.Fill);
         }
@@ -115,17 +111,11 @@ namespace PZ1_PR132_2016
         {
             Ellipse shape = (Ellipse)ShapeToChange.Shape;
             DataInTextBox(tbBorderTh, shape.StrokeThickness);          
-            DataInTextBox(tbxWidth, shape.Width);          
-            DataInTextBox(tboxHeight, shape.Height);
             SelectColorInCombobox(cbBorder, shape.Stroke);
             SelectColorInCombobox(cbFill, shape.Fill);
         }
         void PolygonWind()
         {
-            tblokWidth.Style = (Style)FindResource("TextBlockDisabledStyle");
-            tbHeight.Style = (Style)FindResource("TextBlockDisabledStyle");
-            tbxWidth.IsEnabled = false;
-            tboxHeight.IsEnabled = false;
             tbImage.Style = (Style)FindResource("TextBlockDisabledStyle");
             btnFindImage.Style = (Style)FindResource("ButtonDisabledStyle");
             btnFindImage.IsEnabled = false;
@@ -189,19 +179,19 @@ namespace PZ1_PR132_2016
             switch (myShapeEnum)
             {
                 case MyShapeEnum.Elipse:
-                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
+                    if (!( ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
                         return;
                     UpdateEllipse((MyEllipse)ShapeToChange);
                    
                     break;
                 case MyShapeEnum.Rectangle:
 
-                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
+                    if (!( ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
                         return;
                     UpdateRectangle((MyRectangle)ShapeToChange);
                                         break;
                 case MyShapeEnum.Image:
-                    if (!(ValidateTexBox(tbxWidth) && ValidateTexBox(tboxHeight) && ValidateImagePath(imgPath)))
+                    if (!(ValidateImagePath(imgPath)))
                         return;
                     UpdateImage((MyImage)ShapeToChange);
                     break;
@@ -225,30 +215,22 @@ namespace PZ1_PR132_2016
         }
          void  UpdateImage(MyImage image)
         {
-            int width = Int32.Parse(tbxWidth.Text);
-            int height = Int32.Parse(tboxHeight.Text);
-
-            image.UpdateShape(width, height, imgPath);
+              image.UpdateShape( imgPath);
         }
         void UpdateRectangle(MyRectangle rectangle)
         {
             SolidColorBrush border = CreateColor(cbBorder);
             SolidColorBrush Fill = CreateColor(cbFill);
 
-            int width = Int32.Parse(tbxWidth.Text);
-            int height = Int32.Parse(tboxHeight.Text);
             int borderTh = Int32.Parse(tbBorderTh.Text);
-            rectangle.UpdateShape(width, height, Fill, border, borderTh);
+            rectangle.UpdateShape(Fill, border, borderTh);
         }
         void UpdateEllipse(MyEllipse ellipse)
         {
             SolidColorBrush border = CreateColor(cbBorder);
             SolidColorBrush Fill = CreateColor(cbFill);
-
-            int width = Int32.Parse(tbxWidth.Text);
-            int height = Int32.Parse(tboxHeight.Text);
             int borderTh = Int32.Parse(tbBorderTh.Text);
-            ellipse.UpdateShape(width, height, Fill, border, borderTh);
+            ellipse.UpdateShape(Fill, border, borderTh);
         }
         SolidColorBrush CreateColor(ComboBox comboBox)
         {

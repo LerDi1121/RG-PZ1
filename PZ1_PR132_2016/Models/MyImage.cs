@@ -57,19 +57,16 @@ namespace PZ1_PR132_2016.Models
             changePropertiesWindow.ShowDialog();
 
         }
-        public void UpdateShape(int width, int height, string path)
+        public void UpdateShape( string path)
         {
             if (Shape == null)
                 return;
-            Shape.Height = height;
-      
-            Shape.Width = width;
+
             Shape.Fill = new ImageBrush
             {
                 ImageSource = new BitmapImage(new Uri(path, UriKind.Absolute))
             };
-            Height = height;
-            Width = width;
+
             Path = path;
 
         }
