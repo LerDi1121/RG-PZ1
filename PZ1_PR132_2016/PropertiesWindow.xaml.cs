@@ -32,6 +32,7 @@ namespace PZ1_PR132_2016
         private List<Point> pointsForPolygon;
         public PropertiesWindow( Point point)
         {
+            imgPath = "";
             InitializeComponent();
             AllButons = new List<Button>() {btnCancel,btnDraw, btnFindImage};
 

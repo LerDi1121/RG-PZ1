@@ -255,16 +255,11 @@ namespace PZ1_PR132_2016
             if (PointForPolygon.Count == 0)
                 return;
 
-
               PointForPolygon = new List<Point>(PointForPolygon);
                 PropertiesWindow propertiesWindow = new PropertiesWindow(PointForPolygon);
                 propertiesWindow.ShowDialog();
                 PointForPolygon = new List<Point>();
                 AddShapeOnCanvas();
-           
-
-
-
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)

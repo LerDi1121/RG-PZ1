@@ -28,7 +28,7 @@ namespace PZ1_PR132_2016
         MyShapeEnum myShapeEnum;
         public ChangePropertiesWindow(MyShape shape, MyShapeEnum  myShapeEnum)
         {
-           
+            imgPath = "";
             InitializeComponent();
             cbBorder.ItemsSource = typeof(Colors).GetProperties();
             cbFill.ItemsSource = typeof(Colors).GetProperties();
@@ -96,7 +96,8 @@ namespace PZ1_PR132_2016
         void ImageData()
         {
             MyImage shape = (MyImage)ShapeToChange;
-              DataInImage(shape.Path);
+            DataInImage(shape.Path);
+            imgPath = shape.Path;
 
 
         }
@@ -185,7 +186,6 @@ namespace PZ1_PR132_2016
                    
                     break;
                 case MyShapeEnum.Rectangle:
-
                     if (!( ValidateTexBox(tbBorderTh) && ValidateColor(cbBorder) && ValidateColor(cbFill)))
                         return;
                     UpdateRectangle((MyRectangle)ShapeToChange);
@@ -264,6 +264,7 @@ namespace PZ1_PR132_2016
         }
         private void btnFindImage_Click(object sender, RoutedEventArgs e)
         {
+            imgPath = "";
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png| sAll files (*.*)|*.*";
 
